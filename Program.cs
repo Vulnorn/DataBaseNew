@@ -152,7 +152,7 @@ namespace DataBasePlayer
         {
             if (TryGetPlayer(out Player player))
             {
-                player.SetBan();
+                player.Ban();
             }
         }
 
@@ -216,7 +216,7 @@ namespace DataBasePlayer
             Console.WriteLine($"Уникальный Id Персонажа: {Id} Ник: {Name} Уровень: {Level}{(IsBanned ? " Забанен" : "")}");
         }
 
-        public void SetBan()
+        public void Ban()
         {
             IsBanned = true;
             Console.WriteLine("Персонаж получил бан.");
