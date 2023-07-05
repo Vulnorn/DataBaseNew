@@ -42,7 +42,7 @@ namespace DataBasePlayer
                         break;
 
                     case BanPlayerMenu:
-                        database.SetBanPlayer();
+                        database.BanPlayer();
                         break;
 
                     case UnbanPlayerMenu:
@@ -70,6 +70,8 @@ namespace DataBasePlayer
     {
         private List<Player> _players = new List<Player>();
 
+        public int Ids { get; private set; }
+
         public void CreateNewPlayer()
         {
             string userInputNamePlayer = null;
@@ -78,6 +80,8 @@ namespace DataBasePlayer
             int levelPlayer = 0;
             int minimumLevelPlayer = 1;
             int maximumLevelPlayer = 100;
+
+            Ids++;
 
             Console.Clear();
             Console.WriteLine($"Введите ник персонажа");
@@ -94,7 +98,7 @@ namespace DataBasePlayer
             Console.WriteLine($"Введите уровень персонажа. Он не должен быть ниже {minimumLevelPlayer} и {maximumLevelPlayer}");
             userInputLevelPlayer = Console.ReadLine();
 
-            levelPlayer = CheckingInput(userInputLevelPlayer, levelPlayer);
+            levelPlayer = VerifyInput(userInputLevelPlayer);
 
             while (levelPlayer < minimumLevelPlayer || levelPlayer > maximumLevelPlayer)
             {
@@ -102,23 +106,12 @@ namespace DataBasePlayer
                 Console.Write($"Уровень персонажа не может быть ниже {minimumLevelPlayer} и выше {maximumLevelPlayer}. Введите уровень персонажа: ");
                 userInputLevelPlayer = Console.ReadLine();
 
-                levelPlayer = CheckingInput(userInputLevelPlayer, levelPlayer);
+                levelPlayer = VerifyInput(userInputLevelPlayer);
             }
 
-            _players.Add(new Player(userInputNamePlayer, levelPlayer));
+            _players.Add(new Player(userInputNamePlayer, levelPlayer,Ids));
         }
 
-        private static int CheckingInput(string userInputLevelPlayer, int levelPlayer)
-        {
-
-            if (int.TryParse(userInputLevelPlayer, out levelPlayer) == false)
-            {
-                Console.WriteLine("Не корректный ввод.");
-                Console.ReadKey();
-            }
-
-            return levelPlayer;
-        }
 
         public void ShowAllPlayeres()
         {
@@ -148,7 +141,7 @@ namespace DataBasePlayer
             }
         }
 
-        public void SetBanPlayer()
+        public void BanPlayer()
         {
             if (TryGetPlayer(out Player player))
             {
@@ -192,15 +185,26 @@ namespace DataBasePlayer
             Console.ReadKey();
             return false;
         }
+
+        private static int VerifyInput(string userInputLevelPlayer)
+        {
+            int levelPlayer;
+            if (int.TryParse(userInputLevelPlayer, out levelPlayer) == false)
+            {
+                Console.WriteLine("Не корректный ввод.");
+                Console.ReadKey();
+            }
+
+            return levelPlayer;
+        }
     }
 
     class Player
     {
-        private static int _ids;
 
-        public Player(string name, int level)
+        public Player(string name, int level, int ids)
         {
-            Id = ++_ids;
+            Id = ids;
             Name = name;
             Level = level;
             IsBanned = false;
