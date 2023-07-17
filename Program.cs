@@ -34,11 +34,11 @@ namespace DataBasePlayer
                 switch (userInput)
                 {
                     case AddNewPlayerMenu:
-                        database.CreateNewPlayer();
+                        database.CreatePlayer();
                         break;
 
                     case ShowPlayerMenu:
-                        database.ShowAllPlayeres();
+                        database.ShowAllPlayers();
                         break;
 
                     case BanPlayerMenu:
@@ -72,7 +72,7 @@ namespace DataBasePlayer
 
         public int Ids { get; private set; }
 
-        public void CreateNewPlayer()
+        public void CreatePlayer()
         {
             string userInputNamePlayer = null;
             string userInputLevelPlayer;
@@ -113,7 +113,7 @@ namespace DataBasePlayer
         }
 
 
-        public void ShowAllPlayeres()
+        public void ShowAllPlayers()
         {
             if (_players.Count < 1)
             {
@@ -146,6 +146,8 @@ namespace DataBasePlayer
             if (TryGetPlayer(out Player player))
             {
                 player.Ban();
+                Console.WriteLine("Персонаж получил бан.");
+                Console.ReadKey();
             }
         }
 
@@ -154,6 +156,8 @@ namespace DataBasePlayer
             if (TryGetPlayer(out Player player))
             {
                 player.Unban();
+                Console.WriteLine("С Персонажа снят бан.");
+                Console.ReadKey();
             }
         }
 
@@ -186,7 +190,7 @@ namespace DataBasePlayer
             return false;
         }
 
-        private static int VerifyInput(string userInputLevelPlayer)
+        private int VerifyInput(string userInputLevelPlayer)
         {
             int levelPlayer;
             if (int.TryParse(userInputLevelPlayer, out levelPlayer) == false)
@@ -202,9 +206,9 @@ namespace DataBasePlayer
     class Player
     {
 
-        public Player(string name, int level, int ids)
+        public Player(string name, int level, int id)
         {
-            Id = ids;
+            Id = id;
             Name = name;
             Level = level;
             IsBanned = false;
@@ -223,15 +227,11 @@ namespace DataBasePlayer
         public void Ban()
         {
             IsBanned = true;
-            Console.WriteLine("Персонаж получил бан.");
-            Console.ReadKey();
         }
 
         public void Unban()
         {
             IsBanned = false;
-            Console.WriteLine("С Персонажа снят бан.");
-            Console.ReadKey();
         }
     }
 }
