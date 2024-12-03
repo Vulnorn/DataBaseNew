@@ -98,7 +98,7 @@ namespace DataBasePlayer
             Console.WriteLine($"Введите уровень персонажа. Он не должен быть ниже {minimumLevelPlayer} и {maximumLevelPlayer}");
             userInputLevelPlayer = Console.ReadLine();
 
-            levelPlayer = VerifyInput(userInputLevelPlayer);
+            levelPlayer = GetUserInput(userInputLevelPlayer);
 
             while (levelPlayer < minimumLevelPlayer || levelPlayer > maximumLevelPlayer)
             {
@@ -106,7 +106,7 @@ namespace DataBasePlayer
                 Console.Write($"Уровень персонажа не может быть ниже {minimumLevelPlayer} и выше {maximumLevelPlayer}. Введите уровень персонажа: ");
                 userInputLevelPlayer = Console.ReadLine();
 
-                levelPlayer = VerifyInput(userInputLevelPlayer);
+                levelPlayer = GetUserInput(userInputLevelPlayer);
             }
 
             _players.Add(new Player(userInputNamePlayer, levelPlayer,Ids));
@@ -186,7 +186,7 @@ namespace DataBasePlayer
             return false;
         }
 
-        private int VerifyInput(string userInputLevelPlayer)
+        private int GetUserInput(string userInputLevelPlayer)
         {
             int levelPlayer;
             if (int.TryParse(userInputLevelPlayer, out levelPlayer) == false)
