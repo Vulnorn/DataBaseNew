@@ -7,12 +7,12 @@ namespace DataBasePlayer
     {
         static void Main(string[] args)
         {
-            const string AddNewPlayerMenu = "1";
-            const string ShowPlayerMenu = "2";
-            const string BanPlayerMenu = "3";
-            const string UnbanPlayerMenu = "4";
-            const string RemovePlayerMenu = "5";
-            const string ExitMenu = "6";
+            const string CommandAddNewPlayer = "1";
+            const string CommandShowPlayer = "2";
+            const string CommandBanPlayer = "3";
+            const string CommandUnbanPlayer = "4";
+            const string CommandRemovePlayer = "5";
+            const string CommandExit = "6";
 
             bool isWork = true;
 
@@ -22,38 +22,38 @@ namespace DataBasePlayer
             {
                 Console.Clear();
                 Console.WriteLine($"Выберите пункт в меню:");
-                Console.WriteLine($"{AddNewPlayerMenu} - Добавить нового игрока.");
-                Console.WriteLine($"{ShowPlayerMenu} - Показать базу с игроками.");
-                Console.WriteLine($"{BanPlayerMenu} - Забанить игрока.");
-                Console.WriteLine($"{UnbanPlayerMenu} - Разбанить игрока.");
-                Console.WriteLine($"{RemovePlayerMenu} - Удалить игрока.");
-                Console.WriteLine($"{ExitMenu} - Выход");
+                Console.WriteLine($"{CommandAddNewPlayer} - Добавить нового игрока.");
+                Console.WriteLine($"{CommandShowPlayer} - Показать базу с игроками.");
+                Console.WriteLine($"{CommandBanPlayer} - Забанить игрока.");
+                Console.WriteLine($"{CommandUnbanPlayer} - Разбанить игрока.");
+                Console.WriteLine($"{CommandRemovePlayer} - Удалить игрока.");
+                Console.WriteLine($"{CommandExit} - Выход");
 
                 string userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case AddNewPlayerMenu:
+                    case CommandAddNewPlayer:
                         database.CreateNewPlayer();
                         break;
 
-                    case ShowPlayerMenu:
+                    case CommandShowPlayer:
                         database.ShowAllPlayeres();
                         break;
 
-                    case BanPlayerMenu:
+                    case CommandBanPlayer:
                         database.BanPlayer();
                         break;
 
-                    case UnbanPlayerMenu:
+                    case CommandUnbanPlayer:
                         database.UnbanPlayer();
                         break;
 
-                    case RemovePlayerMenu:
+                    case CommandRemovePlayer:
                         database.RemovePlayer();
                         break;
 
-                    case ExitMenu:
+                    case CommandExit:
                         isWork = false;
                         break;
 
@@ -186,7 +186,7 @@ namespace DataBasePlayer
             return false;
         }
 
-        private static int VerifyInput(string userInputLevelPlayer)
+        private int VerifyInput(string userInputLevelPlayer)
         {
             int levelPlayer;
             if (int.TryParse(userInputLevelPlayer, out levelPlayer) == false)
